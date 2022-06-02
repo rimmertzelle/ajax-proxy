@@ -1,0 +1,18 @@
+
+# The services we wish to use
+services:
+
+# Both PHP and Apache in the same package. No need for networking! :) 
+    php-apache:
+        image: php:8.1.6-apache
+        # The data we wish to give to Apache
+        # 1. Move into the proxy-without-authorization folder, since that's where our documentroot is.
+        # 2. Serve folder contents (Default site serves from /var/www/html).
+        volumes:
+            - './proxy-without-authorization:/var/www/html/'
+        # Apache uses port 80 under the hood. Changing it to something else generates an empty response.
+        # You may freely change the port before :80 however. This determines the port used on your localhost. Example: 123:80 serves the website on localhost:123 . 
+        ports:
+            - '8000:80'
+
+# Use the Docker extension to 'compose up' against this file, or type 'docker compose -f "docker-compose.yml" up -d --build' in your project terminal.
